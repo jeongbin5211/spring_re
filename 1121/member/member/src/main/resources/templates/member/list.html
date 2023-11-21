@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/member/insert">회원가입</a>
+    <a href="/login">로그인</a>
+    <h1>코리아아이티 아카데미 회원목록 페이지</h1>
+    <script th:inline="javascript">
+        alert([[${msg}]]);
+    </script>
+
+    게시물 수 : [[${cnt}]]
+    <form>
+        <select class="searchType" id="searchType">
+            <option value="">선택</option>
+            <option value="email">이메일</option>
+            <option value="name">작성자</option>
+        </select>
+        <input type="text" class="words" placeholder="검색어 입력">
+        <button class="searchBtn">검색</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>아이디</td>
+                <td>이메일</td>
+                <td>비밀번호</td>
+                <td>이름</td>
+                <td>가입일</td>
+                <td>비고</td>
+            </tr>
+        </thead>
+        <tbody class="disp">
+
+        </tbody>
+    </table>
+    
+    <script>
+        let searchType = document.querySelector('#searchType');
+        let searchBtn = document.querySelector('.searchBtn');
+        let words = document.querySelector('.words');
+
+        function deleteMember(id) {
+            //alert("삭제");
+            //alert(id);
+
+            if (confirm('회원정보를 삭제하시겠습니까?')) {
+                location.href = "/member/delete?id="+id;
+            }
+        }
+
+        $.ajax({
+            type: 'post',
+            url: "/member",
+            dataType: 'json',
+            success: (result) => {
+                let output = "";
+                if (result.msg == "ok") {
+                    // alert("ok");
+                    
+                    result.member.forEach((m) => {
+                        output += `
+                            <tr>
+                                <td>${m.id}</td>
+                                <td>${m.email}</td>
+                                <td>${m.passwd}</td>
+                                <td>${m.name}</td>
+                                <td>${m.regdate}</td>
+                                <td>
+                                    <button>보기</button>
+                                    <button>수정</button>
+                                    <button class="delBtn" onclick="deleteMember(${m.id})">삭제</button>
+                                </td>
+                            </tr>
+                        `;
+
+                    })
+                    document.querySelector('.disp').innerHTML = output;
+                }
+                
+            }
+        })
+
+        
+
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (searchType.options[searchType.selectedIndex].value == "") {
+                alert("검색 타입을 선택해주세요.");
+                searchType.focus();
+                return false;
+            }
+
+            if (words.value == "") {
+                alert("검색어를 입력하세요.");
+                words.focus();
+                return false;
+            }
+        })
+
+
+        
+    </script>
+</body>
+</html>

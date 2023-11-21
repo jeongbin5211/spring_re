@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        form {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+<a href="/users/list">회원목록보기</a>
+<h1>회원가입 페이지</h1>
+<div class="container">
+    <form action="/users/insert" mathod="post" onsubmit="return frmCheck()">
+        <ul>
+            <li>
+                <label>
+                    이메일
+                </label>
+                <input type="text" class="email">
+            </li>
+            <li>
+                <label>
+                    비밀번호
+                </label>
+                <input type="password" class="passwd">
+            </li>
+            <li>
+                <button class="btn">회원가입</button>
+            </li>
+        </ul>
+    </form>
+</div>
+
+<script>
+    function frmCheck() {
+        let email = document.querySelector('.email');
+        let passwd = document.querySelector('.passwd');
+
+        if (email.value == "") {
+            alert("이메일을 입력하세요.");
+            email.focus();
+            return false;
+        } else if (passwd.value == "") {
+            alert("비밀번호를 입력하세요.");
+            passwd.focus();
+            return false;
+        }
+
+    }
+
+</script>
+</body>
+</html>

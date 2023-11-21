@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script th:src="@{/js/jquery.js}"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+   
+   * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
+   
+   body {
+       font-family: 'Noto Sans KR', sans-serif;
+   }
+   
+   input {
+       font-family: 'Noto Sans KR', sans-serif;
+   }
+   
+   button {
+       font-family: 'Noto Sans KR', sans-serif;
+   }
+
+   form {
+        margin: 50px;
+        padding: 20px;
+    }
+
+    .space {
+        margin: 50px 0;
+    }
+
+    .tip {
+        background-color: #eee;
+        margin: 4px;
+        padding: 6px;
+        display: inline-block;
+        border-radius: 4px;
+        font-weight: 700px;
+    }
+
+    .del {
+        font-size: 14px;
+        cursor: pointer;
+    }    
+   </style>
+</head>
+<body>
+    <form>
+        <a href="/selbox">목록 보기</a>
+        <fieldset>
+            <legend>부서</legend>
+            <p class="disp">
+                
+            </p>
+        </fieldset>
+    </form>
+
+    <p class="space"></p>
+    <form>
+        <fieldset>
+            <label>직책</label>
+            <p class="disp2">
+                <label>부서</label>
+                <select class="deptCode" id="dept">
+                    
+                </select>
+                <br>
+                <label>직책코드</label>
+                <input type="text" class="posCode">
+                <br>
+                <label>직책명</label>
+                <input type="text" class="posName">
+                <br>
+                <button class="btn">직책 등록</button>
+            </p>
+        </fieldset>
+    </form>
+    <script>
+
+        let deptCode = document.querySelector('.deptCode');
+        let posCode = document.querySelector('.posCode');
+        let posName = document.querySelector('.posName');
+        let btn = document.querySelector('.btn');
+
+        $(function () {
+            //alert("ok");
+            $.ajax({
+                type: 'post',
+                url: "/dept/sel",
+                dataType: 'json',
+                success: (result) => {
+                    let output = "";
+                    result.dept.forEach((d) => {
+                        output += `
+                            <span class="tip">${d.deptName}
+                                <span class="del">x</span>
+                            </span>
+                        `
+                    })
+                    document.querySelector('.disp').innerHTML = output;
+                }  
+            });
+
+            $.ajax({
+                type: 'post',
+                url: "/dept/sel",
+                dataType: 'json',
+                success: (res) => {
+                    let output = `<option value=''>--부서선택--</option>`;
+                    res.dept.forEach((d) => {
+                        output += `<option value="${d.deptCode}">${d.deptName}</option>`;
+                    })
+                    document.querySelector('#dept').innerHTML = output;
+                }
+            });
+        })
+        
+        
+
+        
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (deptCode.options[deptCode.selectedIndex].value == "") {
+                alert("부서를 선택해주세요.");
+                deptCode.focus();
+                return false;
+            }
+
+            //alert(deptCode.options[deptCode.selectedIndex].value);
+
+            let obj2 = {
+                posCode: posCode.value,
+                posName: posName.value,
+                deptCode: deptCode.options[deptCode.selectedIndex].value
+            }
+
+            $.ajax({
+                type: 'post',
+                url: "/pos/addPos",
+                dataType: 'json',
+                data: obj2,
+                success: (result) => {
+                    if(result.msg == "ok") {
+                        alert("직책이 추가되었습니다.");
+                        location.href = "/dept/multiple"
+                    }
+                }
+            })
+        })
+
+        
+    </script>
+</body>
+</html>

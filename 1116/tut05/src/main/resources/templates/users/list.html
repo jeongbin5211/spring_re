@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원목록</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Roboto&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #ccc;
+        }
+
+        tr {
+        height: 45px;
+        text-align: center;
+        }
+
+        tr:nth-child(1) {
+            font-weight: bold;
+            background-color: #eee;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            width: 1280px;
+            margin: 0 auto;
+        }
+
+
+    </style>
+</head>
+<body>
+<a href="/users/insert">회원등록하기</a>
+<h1>회원목록 페이지</h1>
+<div class="container">
+    <table>
+        <tr>
+            <td>이메일</td>
+            <td>비번</td>
+            <td>비고</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

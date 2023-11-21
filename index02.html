@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스프링에서 데이터 가져오기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+        p {
+            font-style: italic;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p></p>
+    <button class="receive">데이터 가져오기</button>
+    <button class="push">데이터 보내기</button>
+
+    <script>
+        document.querySelector('.receive').addEventListener('click', () => {
+            // alert("ok");
+
+            // 전송타입, 주소, 통신, 데이터통신방법, success()
+            $.ajax({
+                type: 'post',
+                url: 'http://localhost:9999/getData',
+                dataType: 'json',
+                // spring 에서 넘어온 데이터는 매개변수로 넘어온다.
+                success: (user) => {
+                    // console.log(user);
+                    // console.log(user.email);
+                    // console.log(user.passwd);
+                    // console.log(user.name);
+                    // console.log(user.age);
+                    document.querySelector('p').innerText
+                    = `이메일 : ${user.email}, 비밀번호 : ${user.passwd}, 이름 : ${user.name}, 나이 : ${user.age}`
+                }
+            })
+        })
+
+        document.querySelector('.push').addEventListener('click', () => {
+            // alert("send ok");
+
+            // get, setData, 전송타입 json, 전송데이터, success
+
+            let buseo = {
+                code: "100",
+                name: "인사과"
+            }
+
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:9999/setData',
+                dataType: 'json',
+                data: buseo,
+                // spring 에서 넘어온 데이터는 매개변수로 넘어옴
+                success: (result) => {
+                    if (result.msg == "success") {
+                        alert("데이터 전송이 완료되었습니다.");
+                    }else {
+                        alert("데이터 전송에 실패했습니다.");
+                    }
+                },
+                failure: (err) => {
+                    console.err();
+                }
+            })
+        })
+    </script>
+</body>
+</html>

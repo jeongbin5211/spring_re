@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/login">로그인</a>
+    <a href="/member">회원목록</a>
+    <h1>코리아아이티 아카데미 회원가입 페이지</h1>
+    <form autocomplete="off">
+        <ul>
+            <li>
+                <label>이메일</label>
+                <input type="text" class="email">
+            </li>
+            <li>
+                <label>비밀번호</label>
+                <input type="password" class="passwd">
+            </li>
+            <li>
+                <label>이름</label>
+                <input type="text" class="name">
+            </li>
+            <li>
+                <button class="btn">회원 등록</button>
+            </li>
+        </ul>
+    </form>
+    <script>
+        let email = document.querySelector('.email');
+        let passwd = document.querySelector('.passwd');
+        let name = document.querySelector('.name');
+        let btn = document.querySelector('.btn');
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (email.value == "") {
+                alert("이메일을 입력해주세요.");
+                email.focus();
+                return false;
+            }
+
+            if (passwd.value == "") {
+                alert("비밀번호를 입력해주세요.");
+                passwd.focus();
+                return false;
+            }
+
+            if (name.value == "") {
+                alert("이름을 입력해주세요.");
+                name.focus();
+                return false;
+            }
+
+            if (email.value.length < 8) {
+                alert("이메일을 8자리 이상으로 입력하세요.");
+                email.focus();
+                email.value = "";
+                return false;
+            }
+
+            if (passwd.value.length < 12) {
+                alert("비밀번호를 12자리 이상으로 입력하세요.");
+                passwd.focus();
+                passwd.value = "";
+                return false;
+            }
+
+            let obj = {
+                email: email.value,
+                passwd: passwd.value,
+                name: name.value
+            }
+
+            // console.log(obj);
+
+            $.ajax({
+                type: 'post',
+                url: "/member/insert",
+                dataType: 'json',
+                data: obj,
+                success: (result) => {
+                    if (result.msg == "ok") {
+                        alert("회원가입이 완료되었습니다.");
+                        location.href = "/member";
+                    }
+                }
+            })
+            
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입</title>
+</head>
+<body>
+<a href="/">메인 페이지</a>
+<a href="/users/login">로그인 페이지</a>
+<h1>회원가입 페이지</h1>
+
+<button class="btn1">서버에서 정보 가져오기</button>
+<button class="btn2">서버로 정보 보내기</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    document.querySelector('.btn1').addEventListener('click', (e) => {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'get',
+            url: "/users/getAjax",
+            datatype: 'json',
+            success: (result) => {
+                console.log(result);
+            }
+        })
+
+    });
+
+    document.querySelector('.btn2').addEventListener('click', (e) => {
+        e.preventDefault();
+
+        let user1 = {
+            userid: "korea",
+            passwd: "123"
+        }
+
+        $.ajax({
+            type: 'post',
+            url: "/users/setAjax",
+            datatype: 'json',
+            data: user1,
+            success: (result) => {
+                alert(result.msg);
+            },
+            failure: () => {
+
+            }
+        })
+    });
+</script>
+</body>
+</html>
