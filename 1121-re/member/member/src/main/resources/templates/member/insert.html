@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,9 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 <body>
-    <a href="/">Home</a>
-    <a href="/login">로그인</a>
-    <a href="/member">회원목록</a>
+    <div th:insert="~{fragment/nav::nav_f}"></div>
     <h1>코리아아이티 아카데미 회원가입 페이지</h1>
     <form autocomplete="off">
         <ul>

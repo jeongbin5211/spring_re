@@ -10,9 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 <body>
-    <a href="/">Home</a>
-    <a href="/member/insert">회원가입</a>
-    <a href="/login">로그인</a>
+    <div th:insert="~{fragment/nav::nav_f}">
+
+    </div>
     <h1>코리아아이티 아카데미 회원목록 페이지</h1>
     <script th:inline="javascript">
         alert([[${msg}]]);
@@ -20,7 +20,7 @@
 
     게시물 수 : [[${cnt}]]
     <form>
-        <select class="searchType" id="searchType">
+        <select class="searchType" id="searchType" name="searchType">
             <option value="">선택</option>
             <option value="email">이메일</option>
             <option value="name">작성자</option>
@@ -59,6 +59,11 @@
             }
         }
 
+        function viewMember(id) {
+            // console.log(id);
+            location.href = "/member/view?="+id;
+        }
+
         $.ajax({
             type: 'post',
             url: "/member",
@@ -77,7 +82,7 @@
                                 <td>${m.name}</td>
                                 <td>${m.regdate}</td>
                                 <td>
-                                    <button>보기</button>
+                                    <button onclick="viewMember(${m.id})">보기</button>
                                     <button>수정</button>
                                     <button class="delBtn" onclick="deleteMember(${m.id})">삭제</button>
                                 </td>

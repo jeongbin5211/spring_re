@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <!--<h1>코리아아이티 아카데미</h1>
+        <nav>
+            <a href="">회원가입</a>
+            <a href="">로그인</a>
+        </nav>-->
+
+        <h1 th:insert="~{common/header::header_f}"></h1>
+        <nav th:insert="~{common/header::nav_f}">
+
+        </nav>
+    </header>
+
+    <hr>
+
+    <section>
+        페이지 메인
+    </section>
+
+    <hr>
+
+    <footer>
+<!--        <div>
+            <p>코리아아이티 아카데미</p>
+            <p>Tel. 051.1234.5678</p>
+        </div>-->
+        <div th:insert="common/footer::footer_f(koreait, 010.1234.1234)"></div>
+    </footer>
+</body>
+</html>
