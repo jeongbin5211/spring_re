@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>코리아아이티 아카데미 > 회원가입</title>
+
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <style>
+        .msg {
+            font-weight: bold;
+            font-style: italic;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h3>
+        코리아아이티 아카데미
+        <p>
+            <span class="en">Register Member</span>
+        </p>
+    </h3>
+    <form action="" method="post">
+        <ul>
+            <li>
+                <label>
+                    <mark>아이디
+                        <span class="msg"></span>
+                    </mark>
+                </label>
+                <input type="text" name="userid"/>
+            </li>
+            <li>
+                <label>
+                    <mark>비밀번호</mark>
+                </label>
+                <input type="password" name="password">
+            </li>
+            <li>
+                <label>
+                    <mark>이름</mark>
+                </label>
+                <input type="text" name="username">
+            </li>
+            <li>
+                <input type="submit" value="회원가입" class="btn red">
+            </li>
+            <li class="form-bottom">
+                <p>
+                    <a th:href="@{/login}" class="en">Login</a>
+                </p>
+                <p>
+                    <a th:href="@{/home}" class="en">Website Main</a>
+                </p>
+            </li>
+        </ul>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    let userid = document.querySelector('input[name=userid]');
+    let msg = document.querySelector('.msg');
+
+    userid.onblur = function() {
+        // alert("성공");
+        // alert(userid.value);
+        $.ajax({
+            type: 'get',
+            url: '/idCheck',
+            dataType: "json",
+            data: {userid: userid.value}, // key value 값이 같다면 userid 한번만 써도됨
+            success: (result) => {
+                // console.log(result.msg);
+                /*
+                if (result.msg == "Can't use") {
+                    alert("이미 사용중인 아이디입니다.");
+                    userid.value = "";
+                    userid.focus();
+                }
+                */
+
+                if (result.msg == "can") {
+                    msg.innerHTML = "<strong>사용 가능한 아이디 입니다.</strong>";
+                }else {
+                    // msg.innerHTML = "사용 불가능한 아이디 입니다.";
+                    $(".msg").html("<strong>사용할 수 없는 아이디입니다.</strong>")
+                }
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;   
+}
+
+.wrap {
+    width: 350px;
+    /*          x y 번짐 진하게 색상 */
+    box-shadow: 0 0 10px 1px #a3c7fc;
+    padding: 20px;
+}
+
+h3 {
+    text-align: center;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+.form-bottom {
+    display: flex;
+    justify-content: space-between;
+}

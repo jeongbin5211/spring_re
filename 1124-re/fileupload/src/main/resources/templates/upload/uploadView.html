@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>단일 파일 업로드 보기</h2>
+    <p>[[${newName}]]</p>
+    <p>[[${folderName}]]</p>
+    <p>[[${savedPathFileName}]]</p>
+    <p>[[${showImg}]]</p>
+    <p>[[${fileDir}]]</p>
+
+    <img th:src="@{|${folderName}/${newName}|}" alt="" width="150" height="150">
+
+    <p>
+        <a th:href="@{|download?savedPathFileName=${savedPathFileName}|}">다운로드</a>
+    </p>
+</body>
+</html>

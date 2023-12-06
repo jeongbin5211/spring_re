@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>코리아아이티 아카데미 > 글 목록보기</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        /* ------------------------------------- */
+
+        .wrap {
+            box-shadow: 0 0 5px 0.25rem #eee;
+            border: 1px solid #ccc;
+            max-width: 95%;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 3px;
+        }
+
+        form {
+            text-align: right;
+            margin-bottom: 5px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .searchType,
+        .words {
+            padding: 0.4rem 0.75rem;
+            font-size: 14px;
+            color: #212529;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+        }
+
+        .btn {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0b5ed7;
+            padding: 5px 15px;
+            font-size: 14px;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        tr {
+            height: 45px;
+        }
+
+        th,
+        td {
+            border: 1px solid #eee;
+        }
+
+        tr:first-child {
+            background-color: #f7f7f7;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        td:nth-child(2) {
+            text-align: left;
+            padding-left: 4px;
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+
+        <h3>코리아아이티 아카데미 > QnA 게시판 > 글 목록보기</h3>
+
+        <form action="" method="get">
+            <div class="top">
+                <div class="top_left">
+                    <p>전체 게시물 수 : 0 개</p>
+                </div>
+                <div class="top_right">
+                    <select name="searchType" class="searchType">
+                        <option value="subject">제목</option>
+                        <option value="writer">작성자</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input type="text" name="words" class="words" required>
+                    <input type="submit" class="btn" value="검색">
+                </div>
+            </div>
+        </form>
+        <table>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>조회수</th>
+                <th>등록일</th>
+                <th>첨부파일</th>
+                <th>비고</th>
+            </tr>
+            <tr th:each="">
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>
+                    <a href="">수정</a>
+                    <a href="">삭제</a>
+                </td>
+            </tr>
+        </table>
+        <div class="bottom">
+            <div class="bottom-left blue btn2">
+                <a href="">목록</a>
+            </div>
+            <div class="bottom-center">
+                <a href="">1</a>
+            </div>
+            <div class="bottom-right btn2 red">
+                <a href="/board/write">글쓰기</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
